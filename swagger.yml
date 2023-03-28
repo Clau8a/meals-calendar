@@ -1,0 +1,391 @@
+openapi: 3.0.3
+info:
+  title: Meals Calendar
+  description: |-
+    This is a sample Meals Store Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the meals store, we've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
+
+    _If you're looking for the Swagger 2.0/OAS 2.0 version of Mealstore, then click [here](https://editor.swagger.io/?url=https://mealstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Mealstore OAS 2.0` menu option!_
+    
+    Some useful links:
+    - [The Meals Store repository](https://github.com/swagger-api/swagger-mealstore)
+    - [The source API definition for the Meals Store](https://github.com/swagger-api/swagger-mealstore/blob/master/src/main/resources/openapi.yaml)
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: https://mealstore3.swagger.io/api/v3
+tags:
+  - name: meals
+    description: Everything about your Meals
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: schedules
+    description: schedules meals per day
+    externalDocs:
+      description: Find out more about our store
+      url: http://swagger.io
+paths:
+  /meals:
+    post:
+      tags:
+        - meals
+      summary: Add a new meals
+      description: Add a new meals
+      operationId: addMeal
+      requestBody:
+        description: Create a new meals in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseMeal'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/BaseMeal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BaseMeal'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseMeal'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BaseMeal'
+        '405':
+          description: Invalid input
+      security:
+        - mealstore_auth:
+            - write:meals
+            - read:meals
+    get:
+      tags:
+        - meals
+      summary: get list of meals
+      description: get list of meals
+      operationId: getMealList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meals'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meals'
+      security:
+        - mealstore_auth:
+            - write:meals
+            - read:meals
+  /meals/{mealId}:
+    put:
+      tags:
+        - meals
+      summary: Update an existing meals
+      description: Update an existing meals by Id
+      operationId: updateMeal
+      parameters:
+        - name: mealId
+          in: path
+          description: ID of meals to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existent meals
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BaseMeal'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/BaseMeal'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/BaseMeal'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseMeal'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/BaseMeal'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Meals not found
+        '405':
+          description: Validation exception
+      security:
+        - mealstore_auth:
+            - write:meals
+            - read:meals
+    get:
+      tags:
+        - meals
+      summary: Find meals by ID
+      description: Returns a single meals
+      operationId: getMealById
+      parameters:
+        - name: mealId
+          in: path
+          description: ID of meals to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meals'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Meals'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Meals not found
+      security:
+        - api_key: []
+        - mealstore_auth:
+            - write:meals
+            - read:meals
+    delete:
+      tags:
+        - meals
+      summary: Deletes a meals
+      description: delete a meals
+      operationId: deleteMeal
+      parameters:
+        - name: mealId
+          in: path
+          description: Meals id to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '400':
+          description: Invalid meals value
+        '404':
+          description: Meals not found
+      security:
+        - mealstore_auth:
+            - write:meals
+            - read:meals
+  /schedules:
+    post:
+      tags:
+        - schedules
+      summary: schedules a meals
+      description: schedules a meals
+      operationId: scheduleMeal
+      requestBody:
+        description: Create a new meals in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Schedules'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Schedules'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Schedules'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Meals'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Meals'
+        '405':
+          description: Invalid input
+      security:
+        - mealstore_auth:
+            - write:meals
+            - read:meals
+  /schedules/{date}:
+    get:
+      tags:
+        - schedules
+      summary: get scheduled meals by date
+      description: get scheduled meals by date
+      operationId: getScheduledMealsByDate
+      parameters:
+        - name: date
+          in: path
+          description: date to return meals list
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meals'          
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Meals'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Meals not found
+      security:
+        - api_key: []
+        - mealstore_auth:
+            - write:meals
+            - read:meals
+  /schedules/{idScheduledMeal}:
+    delete:
+      tags:
+        - schedules
+      summary: Deletes a scheduled meals
+      description: Deletes a scheduled meals
+      operationId: deleteScheduledMeal
+      parameters:
+        - name: idScheduledMeal
+          in: path
+          description: scheduled meals ID to delete
+          required: true
+          schema:
+            type: number
+            format: int64
+      responses:
+        '400':
+          description: Invalid meals value
+        '404':
+          description: Meals not found
+      security:
+        - mealstore_auth:
+            - write:meals
+            - read:meals
+
+components:
+  schemas:
+    Schedules:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        mealId:
+          type: integer
+          format: int64
+          example: 198772
+        scheduleDate:
+          type: string
+          format: date-time
+      xml:
+        name: schedules
+    Ingredient:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          example: tortilla de nopal
+        quantity:
+          type: number
+          example: 4
+        measure:
+          type: string
+          example: pza
+      xml:
+        name: ingredient
+    BaseMeal:
+      required:
+        - name
+        - portions
+      type: object
+      properties:
+        name:
+          type: string
+          example: chilaquiles
+        portions:
+          type: number
+          example: 1
+        recipe:
+          type: string
+          example: lorem ipsi paum
+        ingredients:
+          type: array
+          xml:
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/Ingredient'
+      xml:
+        name: basemeal
+    Meals:
+      allOf:
+        - $ref: '#/components/schemas/BaseMeal'
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+              example: 10
+          xml:
+            name: meals
+  requestBodies:
+    Meals:
+      description: Meals object that needs to be added
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Meals'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Meals'
+  securitySchemes:
+    mealstore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://mealstore3.swagger.io/oauth/authorize
+          scopes:
+            write:meals: modify meals in your account
+            read:meals: read your meals
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header

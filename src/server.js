@@ -1,11 +1,19 @@
-const express = require('express')
-const app = express()
-const PORT = 3000
+import http from "http";
+import dotenv from "dotenv";
+import { app } from "../app";
+dotenv.config();
 
-app.listen(PORT, (err) => {
-  if (err) {
-    console.error('Error listening: ', err)
-    return
-  }
-  console.log(`listening at port :${PORT}`)
-})
+const port = process.env.PORT;
+
+app.set("port", port);
+const server = http.createServer(app);
+
+server.listen(port);
+
+server.on("error", (error) => {
+  console.log(error)
+  throw error;
+});
+
+
+

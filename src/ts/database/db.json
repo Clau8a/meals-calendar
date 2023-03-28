@@ -1,0 +1,57 @@
+{
+  "ingredients": [
+    {
+      "id": "1",
+      "name": "Tortillas de maiz",
+      "measurement": "pza"
+    },
+    {
+      "id": "2",
+      "name": "Queso chihuahua",
+      "measurement": "g"
+    },
+    {
+      "id": "3",
+      "name": "Salsa verder",
+      "measurement": "ml"
+    }
+  ],
+  "meals": [
+    {
+      "id": "1",
+      "name": "Chilaquiles",
+      "ingredients": [
+        {
+          "id": "1",
+          "quantity": 4
+        }
+      ],
+      "recipe": "",
+      "portions": 1
+    },
+    {
+      "id": "2",
+      "name": "Caldo de queso",
+      "ingredients": [
+        {
+          "id": "2",
+          "quantity": 5
+        }
+      ],
+      "recipe": "",
+      "portions": 1
+    },
+    {
+      "id": "3",
+      "name": "Calabazas con queso",
+      "ingredients": [
+        {
+          "id": "2",
+          "quantity": 5
+        }
+      ],
+      "recipe": "",
+      "portions": 1
+    }
+  ]
+}
