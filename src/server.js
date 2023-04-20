@@ -1,19 +1,14 @@
-import http from "http";
+import express from "express";
 import dotenv from "dotenv";
-import { app } from "../app";
+import mealRouter from "./meal-module/routes/mealRouter.js";
 dotenv.config();
 
-const port = process.env.PORT;
+const PORT = process.env.PORT;
+const app = express();
 
-app.set("port", port);
-const server = http.createServer(app);
+app.use(express.json());
+app.use("/api/meals", mealRouter);
 
-server.listen(port);
-
-server.on("error", (error) => {
-  console.log(error)
-  throw error;
+app.listen(PORT, () => {
+  console.log(`API is listening on port ${PORT}`);
 });
-
-
-

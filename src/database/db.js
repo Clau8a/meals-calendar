@@ -1,4 +1,4 @@
-{
+const DB = {
   "ingredients": [
     {
       "id": "1",
@@ -12,8 +12,13 @@
     },
     {
       "id": "3",
-      "name": "Salsa verder",
+      "name": "Salsa verde",
       "measurement": "ml"
+    },
+    {
+      "id": "4",
+      "name": "Calabaza italiana",
+      "measurement": "pza"
     }
   ],
   "meals": [
@@ -22,7 +27,7 @@
       "name": "Chilaquiles",
       "ingredients": [
         {
-          "id": "1",
+          "ingredientId": "1",
           "quantity": 4
         }
       ],
@@ -34,7 +39,7 @@
       "name": "Caldo de queso",
       "ingredients": [
         {
-          "id": "2",
+          "ingredientId": "2",
           "quantity": 5
         }
       ],
@@ -46,12 +51,18 @@
       "name": "Calabazas con queso",
       "ingredients": [
         {
-          "id": "2",
-          "quantity": 5
+          "ingredientId": "2",
+          "quantity": 100
+        },
+        {
+          "id": "4",
+          "quantity": 3
         }
       ],
       "recipe": "",
-      "portions": 1
+      "portions": 2
     }
   ]
 }
+
+export default DB;

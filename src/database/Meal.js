@@ -1,22 +1,21 @@
-import DB from "./db.json";
-import { saveToDatabase } from "./utils";
-import { BaseMealDto, FilterParams, MealDto } from "../meal-module/meals";
+import DB from "./db.js" ;
+import { saveToDatabase } from "./utils.js";
 
-const getAllMeals = (filterParams: FilterParams) => {
+const getAllMeals = (filterParams) => {
   try {
     if (filterParams.name) {
-      const filteredMeals = DB.meals.filter((meal: MealDto) =>
+      const filteredMeals = DB.meals.filter((meal) =>
         meal.name.toLocaleLowerCase().includes(filterParams.name)
       );
       return filteredMeals;
     }
     return DB.meals;
-  } catch (error: any) {
+  } catch (error) {
     throw { status: 500, message: error };
   }
 };
 
-const getOneMeal = (mealId: string) => {
+const getOneMeal = (mealId) => {
   try {
     const meal = DB.meals.find((meal) => meal.id === mealId);
     if (!meal) {
@@ -26,12 +25,12 @@ const getOneMeal = (mealId: string) => {
       };
     }
     return meal;
-  } catch (error: any) {
+  } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };
   }
 };
 
-const createNewMeal = (newMeal: MealDto) => {
+const createNewMeal = (newMeal) => {
   try {
     const isAlreadyAdded =
       DB.meals.findIndex((meal) => meal.name === newMeal.name) > -1;
@@ -44,12 +43,12 @@ const createNewMeal = (newMeal: MealDto) => {
     DB.meals.push(newMeal);
     saveToDatabase(DB);
     return newMeal;
-  } catch (error: any) {
+  } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };
   }
 };
 
-const updateOneMeal = (mealId: string, changes: BaseMealDto) => {
+const updateOneMeal = (mealId, changes) => {
   try {
     const isAlreadyAdded =
       DB.meals.findIndex((meal) => meal.name === changes.name) > -1;
@@ -74,12 +73,12 @@ const updateOneMeal = (mealId: string, changes: BaseMealDto) => {
     DB.meals[indexForUpdate] = updatedMeal;
     saveToDatabase(DB);
     return updatedMeal;
-  } catch (error: any) {
+  } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };
   }
 };
 
-const deleteOneMeal = (mealId: string) => {
+const deleteOneMeal = (mealId) => {
   try {
     const indexForDeletion = DB.meals.findIndex((meal) => meal.id === mealId);
     if (indexForDeletion === -1) {
@@ -90,7 +89,7 @@ const deleteOneMeal = (mealId: string) => {
     }
     DB.meals.splice(indexForDeletion, 1);
     saveToDatabase(DB);
-  } catch (error: any) {
+  } catch (error) {
     throw { status: error?.status || 500, message: error?.message || error };
   }
 };

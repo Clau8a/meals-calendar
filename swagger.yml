@@ -324,14 +324,26 @@ components:
         name:
           type: string
           example: tortilla de nopal
-        quantity:
-          type: number
-          example: 4
         measure:
           type: string
           example: pza
       xml:
         name: ingredient
+      
+    IngredientQty:
+      type: object
+      properties:
+        ingredientId:
+          type: integer
+          format: int64
+          example: 1
+        quantity:
+          type: integer
+          format: int64
+          example: 100
+      xml:
+        name: ingredientQty
+
     BaseMeal:
       required:
         - name
@@ -352,7 +364,7 @@ components:
           xml:
             wrapped: true
           items:
-            $ref: '#/components/schemas/Ingredient'
+            $ref: '#/components/schemas/IngredientQty'
       xml:
         name: basemeal
     Meals:
