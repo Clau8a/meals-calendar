@@ -1,0 +1,7 @@
+{
+  "ingredients": [
+    { "id": 1, "name": "Torilla", "unit": "pza" },
+    { "id": 2, "name": "Queso", "unit": "g" },
+    { "id": 3, "name": "Salsa verde", "unit": "lata" }
+  ]
+}
