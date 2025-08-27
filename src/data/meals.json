@@ -1,0 +1,29 @@
+{
+  "meals": [
+    {
+      "id": "1",
+      "name": "Chilaquiles",
+      "ingredients": [
+        { "id": 1, "qty": 3 }, 
+        { "id": 2, "qty": 60 },
+        { "id": 3, "qty": 1 }
+      ],
+      "homePrep": true
+    },
+    {
+      "id": "2",
+      "name": "Quesadilla",
+      "ingredients": [
+        { "id": 1, "qty": 2 },
+        { "id": 2, "qty": 60 }
+      ],
+      "homePrep": true
+    },
+    {
+      "id": "3",
+      "name": "Sushi",
+      "ingredients": [],
+      "homePrep": false
+    }
+  ]
+}
