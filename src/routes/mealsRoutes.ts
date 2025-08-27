@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction, Router } from 'express';
-import { getAllMeals, getMealByID } from '../middleware/meals';
+import { getAllMeals, getMealByID } from '../middleware/mealsMiddleware';
 
 const router: Router = express.Router();
 

@@ -1,6 +1,6 @@
 import express from 'express'
 //@ts-ignore
-import mealsRouter from './routes/meals.ts'
+import mealsRouter from './routes/mealsRoutes'
 
 const app = express()
 const PORT = 3001
